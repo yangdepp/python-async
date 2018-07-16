@@ -35,3 +35,4 @@ if __name__ == '__main__':
 # 6、向下执行，打印step 5,继续执行while语句，遇到yield step返回5，到next(iterator)，打印出5
 # 7、继续向下执行，iterator.send(-1)，发送-1赋值给jump，打印jump -1，向下执行，打印step 4,
 # 8、继续while循环，遇到yield step，将step的值4返回，打印出4，结束
+
