@@ -35,3 +35,36 @@ if __name__ == '__main__':
 # 6、向下执行，打印step 5,继续执行while语句，遇到yield step返回5，到next(iterator)，打印出5
 # 7、继续向下执行，iterator.send(-1)，发送-1赋值给jump，打印jump -1，向下执行，打印step 4,
 # 8、继续while循环，遇到yield step，将step的值4返回，打印出4，结束
+
+# ---------------------------------------------------------------------------------------------
+print('-' * 50)
+
+
+# ---------------------------------------------------------------------------------------------
+
+# python3.3中，生成器又引入了yield from关键字，yield from实现了生成器调用另外生成器的功能
+# 可以轻易的重构生成器，比如将多个生成器连接在一起执行
+
+def gen_3():
+    yield 3
+
+
+def gen_234():
+    yield 2
+    yield from gen_3()
+    yield 4
+    return 4
+
+
+def main():
+    yield 1
+    waitting = yield from gen_234()
+    print(waitting)
+    yield 5
+
+
+for element in main():
+    print(element)
+
+# yield from可以从其他生成器中yield一个值，不同生成器之间可以互相通信
+# yield from进入其他的生成器，在其他生成器中遇到yield,就返回yield from中，再进入调用的for循环
