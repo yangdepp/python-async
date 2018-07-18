@@ -1,12 +1,15 @@
 import aiohttp
 import asyncio
 
+
 @asyncio.coroutine
 def fetch_page(session, url):
     response = yield from session.get(url)
     if response.status == 200:
         text = yield from response.text()
         print(text)
+
+
 loop = asyncio.get_event_loop()
 
 session = aiohttp.ClientSession(loop=loop)

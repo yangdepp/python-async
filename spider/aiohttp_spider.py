@@ -1,4 +1,4 @@
-# create by 'yang' in 2018/7/15 
+# create by 'yang' in 2018/7/15
 __author__ = 'yang'
 
 # 获取url 、 抽取 、 反爬虫
@@ -56,7 +56,8 @@ async def article_handler(url, session, pool):
     async with pool.acquire() as conn:
         async with conn.cursor() as cur:
             await cur.execute('SELECT 42;')
-            insert_sql = "insert into article_test(title) values('{}')".format(title)
+            insert_sql = "insert into article_test(title) values('{}')".format(
+                title)
             await cur.execute(insert_sql)
 
 
