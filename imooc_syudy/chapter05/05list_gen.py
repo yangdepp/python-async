@@ -1,4 +1,5 @@
-# create by 'yang' in 2018/7/9 
+
+# create by 'yang' in 2018/7/9
 __author__ = 'yang'
 
 odd_list = []

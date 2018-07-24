@@ -24,3 +24,5 @@ tasks = [
 loop.run_until_complete(asyncio.wait(tasks))
 session.close()
 loop.close()
+
+# 首先实例化一个eventloop，并将其传递给aiohttp.ClientSession使用，session就不用创建自己的
