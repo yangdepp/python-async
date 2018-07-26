@@ -46,8 +46,15 @@ def parse(url):
 
 
 def main():
-    parse(url)
+    from time import time
+    start = time()
+    for i in range(5):
+        parse(url)
+    end = time()
+    print('Cost {} seconds'.format((end - start) / 5))
 
 
 if __name__ == '__main__':
     main()
+
+# Cost 3.2118857383728026 seconds
