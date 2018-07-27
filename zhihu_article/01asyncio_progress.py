@@ -134,3 +134,10 @@ async def print_sum(x, y):
 loop = asyncio.get_event_loop()
 loop.run_until_complete(print_sum(2, 5))
 loop.close()
+
+# 1、当事件循环开始时，它会在Task中寻找coroutine来执行调度，因为事件循环注册了print_sum(),因此被调用
+# 2、执行await compute(x, y)这条语句等同于yield from compute(x, y)，compute()自身也是一个coroutine，因此print_sum会被暂时挂起
+# 3、compute()被加入到事件循环中，程序执行compute()中的print语句
+# 4、然后执行了await asyncio.sleep(1.0)，这个asyncio.sleep()也是一个协程，接着compute()就会被挂起，等待计时器读秒，事件循环会在会停下来等待协程调度
+# 5、计时结束，程序返回compute()中执行return语句，结果会返回到print_sum()，赋值给result,最后打印result。
+# 没有可调度的任务了，loop.close()把事件队列关闭，程序结束。
