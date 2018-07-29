@@ -81,7 +81,7 @@ def fib(max):
         n = n + 1
 
 
-fib = fib(2)
+fib = fib(10)
 for i in fib:
     print(i)
 
