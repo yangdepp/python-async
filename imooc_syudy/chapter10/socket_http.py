@@ -28,7 +28,8 @@ def get_url(url):
             break
 
     data = data.decode("utf8")
-    print(data)
+    html_data = data.split('\r\n\r\n')[1]
+    print(html_data)
     client.close()
 
 
