@@ -14,65 +14,49 @@ import time
 from functools import partial
 
 
+# 协程的调用
 # async def get_html(url):
-#     print('start get url')
-#     await  asyncio.sleep(2)
-#     # time.sleep(2)
-#     print('end get url')
-#
-#
-# if __name__ == '__main__':
-#     start_time = time.time()
-#     loop = asyncio.get_event_loop()
-#     tasks = [get_html('http://cs.zbj.com') for i in range(10)]
-#
-#     loop.run_until_complete(asyncio.wait(tasks))
-#     loop.run_until_complete(asyncio.gather(*tasks))
-#     print(time.time() - start_time)
+# #     print('start get url')
+# #     await asyncio.sleep(2)
+# #     # time.sleep(2)
+# #     print('end the url')
+# #
+# # if __name__ == '__main__':
+# #     # 协程搭配事件循环使用，asyncio实现
+# #     start_time = time.time()
+# #     loop = asyncio.get_event_loop()
+# #     tasks = [get_html("http://www.baidu.com") for i in range(100)]
+# #     loop.run_until_complete(asyncio.wait(tasks))
+# #     print('cost {} seconds'.format(time.time() - start_time))
 
+###########################################################################
 
-# gather和wait的区别
-# gather更加high-level
-# group1 = [get_html('http://xxx.com') for i in range(2)]
-# group2 = [get_html('http://xxx.com') for i in range(3)]
-# group1 = asyncio.gather(*group1)
-# group2 = asyncio.gather(*group2)
-# group2.cancle()
-# loop.run_until_complete(asyncio.gather(group1,group2))
+# 获取协程的返回值
 
-
-
-
-
-# 获取返回值
 async def get_html(url):
     print('start get url')
-    await  asyncio.sleep(2)
+    await asyncio.sleep(2)
     return 'yang'
 
 
+# 如果回调函数要接收一个参数，需要把这个参数放在前面
 def callback(url, future):
     print(url)
     print('send email to yang')
 
 
 if __name__ == '__main__':
+    start_time = time.time()
     loop = asyncio.get_event_loop()
 
-    # get_future = asyncio.ensure_future(get_html('http://sss'))
-    task = loop.create_task(get_html('http://sss'))
-
-    # 可以在执行完某一个协程之后，可以添加一个callback逻辑
-    # 会把future传给callback，因此需要给callback写一个参数future
-    # 假如需要给callback传递一个参数，如url，则需要用偏函数
-    # task.add_done_callback(callback)
-    task.add_done_callback(partial(callback, 'http://sss.com'))
-
+    # future和task是两种方式， task实际上是Future的一个子类
+    # get_future = asyncio.ensure_future(get_html('http://www.baidu.com'))
     # loop.run_until_complete(get_future)
-    loop.run_until_complete(task)
-
     # print(get_future.result())
+
+    task = loop.create_task(get_html('http://www.baidu.com'))
+    # 运行成功后执行回调， 可以用偏函数包装函数，传递参数进回调函数
+    task.add_done_callback(partial(callback, 'http://www.baidu.com'))
+
+    loop.run_until_complete(task)
     print(task.result())
-
-
-# wait和gather
