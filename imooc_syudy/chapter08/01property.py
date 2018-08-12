@@ -13,10 +13,12 @@ class User:
     def get_age(self):
         return datetime.now().year - self.birthday.year
 
+    # 取函数变成取属性，属性描述符，相当于get方法
     @property
     def age(self):
         return datetime.now().year - self.birthday.year
 
+    # 相当于set属性
     @age.setter
     def age(self, value):
         self._age = value

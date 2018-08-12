@@ -17,7 +17,13 @@ class User:
     def __getattr__(self, item):
         return self.info[item]
 
+    # 访问任何属性，都会无条件的进入这个魔法函数
+    def __getattribute__(self, item):
+        return 'yang'
+
 
 if __name__ == '__main__':
     user = User('yang', date(year=1999, month=12, day=12), info={'company_name': 'imooc'})
+    # print(user.info['company_name'])
+
     print(user.company_name)
