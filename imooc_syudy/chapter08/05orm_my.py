@@ -104,8 +104,9 @@ class BaseModel(metaclass=ModelMetaClass):
 
 
 class User(BaseModel):
+    name = CharField(db_column="name", max_length=100)
+    age = IntField(db_column="age", min_value=0, max_value=100)
     email = CharField(db_column="email", max_length=100)
-    tall = IntField(db_column="tall", min_value=0, max_value=100)
 
     # 和表名的映射
     class Meta:
@@ -113,10 +114,10 @@ class User(BaseModel):
 
 
 if __name__ == '__main__':
-    # user = User(name="yang", age=20)
+    # user = User(name="yang", age=20, email="yang@gmail.com")
     # user.save()
 
     user2 = User()
-    user2.email = 'dengxuan@gamil.com'
-    user2.tall = 20
+    user2.name = 'yang'
+    user2.age = 20
     user2.save()
