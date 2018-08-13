@@ -77,5 +77,6 @@ class User(Model):
     password = StringField('password')
 
 
-u = User(id=12345, name='yang', email='yang@163.com', password='my-pwd')
+u = User()
+u.name = 'yang'
 u.save()

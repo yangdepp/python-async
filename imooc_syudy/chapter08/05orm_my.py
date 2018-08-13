@@ -63,16 +63,16 @@ class ModelMetaClass(type):
     def __new__(cls, name, bases, attrs, **kwargs):
         if name == "BaseModel":
             return super().__new__(cls, name, bases, attrs, **kwargs)
-        fields = {}
+        fields = {}  # 记录了所有数据表相关的列
         for key, value in attrs.items():
             if isinstance(value, Field):
                 fields[key] = value
-        attrs_meta = attrs.get("Meta", None)
+        attrs_meta = attrs.get("Meta", None)  # 获取数据表的名字
         _meta = {}
-        db_table = name.lower()
+        db_table = name.lower()  # table表的名字默认是类的小写
         if attrs_meta is not None:
-            table = getattr(attrs_meta, "db_table", None)
-            if table is not None:
+            table = getattr(attrs_meta, "db_table", None)  # 取出Meta类中的db_table
+            if table is not None:  # 如果设置了，就赋值给db_table替换默认的小写
                 db_table = table
         _meta["db_table"] = db_table
         attrs["_meta"] = _meta
@@ -99,6 +99,7 @@ class BaseModel(metaclass=ModelMetaClass):
             values.append(str(value))
         sql = "insert {db_table}({fields}) value({values})".format(db_table=self._meta["db_table"],
                                                                    fields=",".join(fields), values=",".join(values))
+        print(sql)
         pass
 
 
@@ -114,3 +115,8 @@ class User(BaseModel):
 if __name__ == '__main__':
     user = User(name="yang", age=20)
     user.save()
+
+    user2 = User()
+    user2.name = 'dengxuan'
+    user2.age = 20
+    user2.save()
