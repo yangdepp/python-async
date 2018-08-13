@@ -77,6 +77,7 @@ class User(Model):
     password = StringField('password')
 
 
-u = User()
-u.name = 'yang'
-u.save()
+if __name__ == '__main__':
+    u = User()
+    u.name = 'yang'
+    u.save()
