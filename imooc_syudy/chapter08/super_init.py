@@ -21,5 +21,4 @@ class User(BaseMode):
     class Meta:
         db_table = 'user'
 
-
-
+# metaclass是在类生成过程中调用，因此上述代码会打印出'b'
